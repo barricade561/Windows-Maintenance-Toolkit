@@ -15,6 +15,12 @@
     <DebugType>none</DebugType>
     <DebugSymbols>false</DebugSymbols>
     <InvariantGlobalization>false</InvariantGlobalization>
+    <Version>2.0.0</Version>
+    <AssemblyVersion>2.0.0.0</AssemblyVersion>
+    <FileVersion>2.0.0.0</FileVersion>
+    <Product>Windows Maintenance Toolkit</Product>
+    <Company>Barracuda Systems</Company>
+    <Description>Safe bilingual Windows maintenance and diagnostics command center.</Description>
   </PropertyGroup>
 
 </Project>
