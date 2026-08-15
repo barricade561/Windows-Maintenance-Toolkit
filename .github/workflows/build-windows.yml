@@ -3,6 +3,8 @@ name: Build Windows EXE
 on:
   push:
     branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
   workflow_dispatch:
 
 permissions:
@@ -33,6 +35,13 @@ jobs:
           -p:PublishSingleFile=true
           -p:EnableCompressionInSingleFile=true
           -o publish
+
+      - name: Verify published executable
+        shell: pwsh
+        run: |
+          $exe = Get-Item publish/WindowsMaintenanceToolkit.exe
+          if ($exe.Length -lt 1MB) { throw "Published executable is unexpectedly small." }
+          Get-FileHash $exe.FullName -Algorithm SHA256 | Format-List
 
       - name: Upload EXE artifact
         uses: actions/upload-artifact@v4
