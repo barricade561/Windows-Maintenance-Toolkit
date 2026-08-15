@@ -1,81 +1,49 @@
 # Windows Maintenance Toolkit
 
-A modern Windows 10/11 maintenance, repair, diagnostics, cleanup, and optimization utility built with C#/.NET and native Windows servicing tools.
+**Barracuda Systems** presents a bilingual Windows 10/11 maintenance, repair, security and diagnostics command center. Version 2 uses an obsidian-black interface with crimson neon accents, transparent command execution, risk labels and evidence-backed health reporting.
 
-## Features
+## Highlights
 
-- **SFC Scan** — runs `sfc /scannow`
-- **DISM CheckHealth** — checks component-store corruption state
-- **DISM ScanHealth** — performs a deeper component-store scan
-- **DISM RestoreHealth** — repairs the Windows component store
-- **CHKDSK Online Scan** — runs `chkdsk C: /scan`
-- **Flush DNS** — clears the local DNS resolver cache
-- **Reset Winsock** — resets the Windows Winsock catalog
-- **Temporary File Cleanup** — removes deletable files from Windows/user temp folders while skipping locked files
-- **System Information** — displays basic local system diagnostics
-- **Full System Health Check** — runs DISM, SFC, and CHKDSK in sequence
-- Built-in activity log showing the commands and their output
-- Administrator manifest for operations that require elevation
-- Dark Windows desktop interface
+- English / Turkish live language selector
+- Comprehensive dashboard: CPU, GPU, RAM, disks, network, Windows build, uptime, motherboard, BIOS/UEFI, Secure Boot, TPM, virtualization, computer/user identity, Defender and firewall state
+- Category navigation: Dashboard, System Repair, Cleanup, Network, Optimization, Diagnostics, Security, System Info, Startup & Services, Windows Update, Restore & Recovery, Utilities / Scheduler, Logs, Settings and About
+- Preserved tools: SFC, DISM CheckHealth / ScanHealth / RestoreHealth, CHKDSK, Flush DNS, Reset Winsock, Temp Cleanup, System Info and Full Health Check
+- Additional safe tools: restore points, startup inventory, controlled Services console, Windows Update cache repair, Disk Cleanup, ping, traceroute, DNS/gateway tests, power-plan selection and Windows system-console shortcuts
+- `SAFE`, `CAUTION` and `RESTART REQUIRED` labels, confirmation prompts and optional automatic restore points
+- Single-operation guard, running state and progress indication
+- Persistent activity logs with timestamps, severity, exit codes, export, clear and configurable retention
+- Full Health Check derives `HEALTHY` / `ATTENTION REQUIRED` from actual DISM, SFC and CHKDSK results. It never invents a health percentage.
+- No random debloat and no automatic disabling of critical services
 
-## Download / EXE build
+## Download and build
 
-Every push to `main` triggers the GitHub Actions workflow **Build Windows EXE**.
-
-1. Open the repository's **Actions** tab.
-2. Open the latest successful **Build Windows EXE** run.
-3. Download the `Windows-Maintenance-Toolkit-win-x64` artifact.
-4. Extract the archive and run `WindowsMaintenanceToolkit.exe`.
-
-The executable is published as a **self-contained Windows x64 single-file application**, so a separate .NET installation is not required.
-
-## Safety notes
-
-This project intentionally uses standard Windows maintenance utilities instead of aggressive "debloat" behavior. Commands are shown in the interface and their output is logged. Some operations can take a long time. Winsock reset may require a reboot.
-
-`DISM /RestoreHealth` may use Windows Update or another configured repair source to obtain replacement component files.
-
-## Requirements
-
-- Windows 10 or Windows 11 x64
-- Administrator approval through UAC
-
-## Development
-
-Project:
-
-```text
-src/WindowsMaintenanceToolkit/WindowsMaintenanceToolkit.csproj
-```
-
-Build locally with .NET 8 SDK:
+GitHub Actions builds and verifies a self-contained Windows x64 single-file executable on pushes and pull requests targeting `main`. Download the `Windows-Maintenance-Toolkit-win-x64` artifact from a successful **Build Windows EXE** run.
 
 ```powershell
 dotnet publish .\src\WindowsMaintenanceToolkit\WindowsMaintenanceToolkit.csproj `
-  -c Release `
-  -r win-x64 `
-  --self-contained true `
-  -p:PublishSingleFile=true
+  -c Release -r win-x64 --self-contained true `
+  -p:PublishSingleFile=true -p:EnableCompressionInSingleFile=true
 ```
+
+Requirements: Windows 10/11 x64 and UAC administrator approval. DISM RestoreHealth may use Windows Update. Network reset and Windows Update repair can require a restart.
 
 ---
 
 # Türkçe
 
-Windows Maintenance Toolkit; Windows 10/11 sistemlerinde bakım, onarım, tanılama ve temel temizlik işlemlerini grafik arayüz üzerinden çalıştırmak için geliştirilmiş bir masaüstü uygulamasıdır.
+**Barracuda Systems** tarafından geliştirilen Windows Maintenance Toolkit; Windows 10/11 için çift dilli bakım, onarım, güvenlik ve tanılama komuta merkezidir. Obsidian siyah arayüzü crimson neon vurgularla birleştirir; çalıştırılan komutları açıkça gösterir ve riskli işlemleri onaya bağlar.
 
-## Özellikler
+## Öne çıkanlar
 
-- `sfc /scannow`
-- DISM CheckHealth / ScanHealth / RestoreHealth
-- `chkdsk C: /scan`
-- DNS önbelleğini temizleme
-- Winsock sıfırlama
-- Geçici dosya temizliği
-- Sistem bilgilerini görüntüleme
-- SFC + DISM + CHKDSK içeren toplu sistem sağlık kontrolü
-- Çalıştırılan komutları ve çıktılarını gösteren aktivite günlüğü
-- Yönetici yetkisi isteyen işlemler için UAC desteği
-- Koyu ve modern Windows arayüzü
+- Sağ üstte anlık İngilizce / Türkçe dil seçimi
+- CPU, GPU, RAM, diskler, ağ, Windows sürümü/build, uptime, anakart, BIOS/UEFI, Secure Boot, TPM, sanallaştırma, bilgisayar/kullanıcı, Defender ve güvenlik duvarı bilgilerini gösteren kapsamlı Dashboard
+- Sistem Onarımı, Temizlik, Ağ, Optimizasyon, Tanılama, Güvenlik, Sistem Bilgisi, Başlangıç ve Hizmetler, Windows Update, Geri Yükleme ve Kurtarma, Araçlar / Zamanlayıcı, Günlükler, Ayarlar ve Hakkında bölümleri
+- SFC, DISM, CHKDSK, ağ testleri, restore point, Update onarımı, temizlik ve Windows yönetim kısayolları
+- `GÜVENLİ`, `DİKKAT` ve `YENİDEN BAŞLATMA GEREKLİ` etiketleri; onay pencereleri ve isteğe bağlı otomatik geri yükleme noktası
+- Zaman, seviye ve exit code içeren kalıcı günlükler; temizleme, dışa aktarma ve saklama süresi ayarı
+- Full Health Check yalnızca gerçek DISM, SFC ve CHKDSK sonuçlarından durum üretir; uydurma sağlık yüzdesi kullanmaz.
+- Rastgele debloat uygulanmaz ve kritik servisler otomatik kapatılmaz.
 
-`.exe` dosyası GitHub Actions tarafından otomatik olarak oluşturulur. Repository içindeki **Actions** sekmesinden en son başarılı **Build Windows EXE** çalıştırmasını açıp `Windows-Maintenance-Toolkit-win-x64` artifact'ini indirebilirsiniz.
+GitHub Actions, `main` dalına yönelik push ve pull requestlerde self-contained Windows x64 tek dosya EXE üretir ve doğrular. Başarılı **Build Windows EXE** çalışmasından `Windows-Maintenance-Toolkit-win-x64` artifact’i indirilebilir.
+
+Gereksinimler: Windows 10/11 x64 ve UAC yönetici onayı.
